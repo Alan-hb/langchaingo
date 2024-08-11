@@ -411,6 +411,7 @@ func parseStreamingChatResponse(ctx context.Context, r *http.Response, payload *
 			var streamPayload StreamedChatResponsePayload
 			err := json.NewDecoder(bytes.NewReader([]byte(data))).Decode(&streamPayload)
 			if err != nil {
+				continue
 				streamPayload.Error = fmt.Errorf("error decoding streaming response: %w", err)
 				responseChan <- streamPayload
 				return
